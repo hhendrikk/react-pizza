@@ -8,14 +8,27 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "lint:fix": "standard --fix | snazzy"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "standard",
+      "standard-react"
+    ]
   },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "fetch"
+    ]
+  },
+  "rescripts": [
+    "env"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -29,6 +42,17 @@
     ]
   },
   "devDependencies": {
-    "standard": "^13.0.0"
+    "@rescripts/cli": "0.0.11",
+    "@rescripts/rescript-env": "0.0.10",
+    "babel-eslint": "10.0.1",
+    "eslint-config-standard": "13.0.1",
+    "eslint-config-standard-react": "8.0.0",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-react": "7.14.2",
+    "eslint-plugin-standard": "4.0.0",
+    "snazzy": "8.0.0",
+    "standard": "13.0.1"
   }
 }
