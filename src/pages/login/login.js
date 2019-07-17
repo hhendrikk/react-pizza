@@ -1,28 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { Button, Grid } from '@material-ui/core'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'services/firebase'
 
+import { AuthContext } from 'contexts/auth'
 import styled from 'styled-components'
 import { ReactComponent as MainLogo } from 'images/logo-react-zzaria.svg'
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyDieuMv-Bc207FQtTFuSyEtjWSeq0bbOfk',
-  authDomain: 'reactzzaria-8fc2f.firebaseapp.com',
-  databaseURL: 'https://reactzzaria-8fc2f.firebaseio.com',
-  projectId: 'reactzzaria-8fc2f',
-  storageBucket: '',
-  messagingSenderId: '647218097771',
-  appId: '1:647218097771:web:453eeda7eac58336'
-}
-
-firebase.initializeApp(firebaseConfig)
 
 function Login () {
   const [userInfo, setUserInfo] = useState({
     isUserLoggedIn: false,
     user: null
   })
+
+  const { login } = useContext(AuthContext)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -31,11 +21,6 @@ function Login () {
         user
       })
     })
-  }, [])
-
-  const login = useCallback(() => {
-    const provider = new firebase.auth.GithubAuthProvider()
-    firebase.auth().signInWithRedirect(provider)
   }, [])
 
   const logout = useCallback(() => {
