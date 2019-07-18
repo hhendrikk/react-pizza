@@ -1,23 +1,27 @@
-import React, { Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import React, { Suspense } from 'react'
+import { Switch, Route } from 'react-router-dom'
+import { LinearProgress } from '@material-ui/core'
+import styled from 'styled-components'
 
-const routes = [
-  { path: '/rota1', content: 'valor da rota 1' },
-  { path: '/rota2', content: 'valor da rota 2' }
-]
+import Header from './header'
+
+const ChoosePizzaSize = React.lazy(() => import('pages/choose-pizza-size'))
 
 const Main = () => (
-  <Fragment>
-    <h1>Main</h1>
-
-    {routes.map((route) => (
-      <Route
-        key={route.path}
-        path={route.path}
-        render={() => <h2>{route.content}</h2>}
-      />
-    ))}
-  </Fragment>
+  <>
+    <Header />
+    <Content>
+      <Suspense fallback={<LinearProgress />}>
+        <Switch>
+          <Route path='/' exact component={ChoosePizzaSize} />
+        </Switch>
+      </Suspense>
+    </Content>
+  </>
 )
+
+const Content = styled.main`
+  padding: 20px;
+`
 
 export default Main
