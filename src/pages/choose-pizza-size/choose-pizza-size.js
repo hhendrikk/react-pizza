@@ -1,13 +1,16 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Typography,
   Grid,
-  Paper,
+  Card,
+  CardActionArea as MaterialCardActionArea,
   Divider as MaterialDivider
 } from '@material-ui/core'
 
 import styled from 'styled-components'
 import { AuthContext } from 'contexts/auth'
+import pizzaSizes from 'fake-data/pizza-sizes'
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useContext(AuthContext)
@@ -25,18 +28,20 @@ const ChoosePizzaSize = () => {
       <PizzasGrid>
         {pizzaSizes.map(pizza => (
           <Grid item key={pizza.id} xs>
-            <PaperPizza>
-              <Pizza>
-                <PizzaText>{pizza.size}cm</PizzaText>
-              </Pizza>
-              <Divider />
-              <Typography variant='h5'>{pizza.name}</Typography>
-              <Typography>
-                {pizza.slices} fatias, {' '}
-                {pizza.flavours} {' '}
-                {singularOrPlural(pizza.flavours, 'sabor', 'sabores')}
-              </Typography>
-            </PaperPizza>
+            <Card>
+              <CardActionArea to='/sabores-da-pizza'>
+                <Pizza>
+                  <PizzaText>{pizza.size}cm</PizzaText>
+                </Pizza>
+                <Divider />
+                <Typography variant='h5'>{pizza.name}</Typography>
+                <Typography>
+                  {pizza.slices} fatias, {' '}
+                  {pizza.flavours} {' '}
+                  {singularOrPlural(pizza.flavours, 'sabor', 'sabores')}
+                </Typography>
+              </CardActionArea>
+            </Card>
           </Grid>
         ))}
       </PizzasGrid>
@@ -48,26 +53,6 @@ function singularOrPlural (amount, singular, plural) {
   return amount === 1 ? singular : plural
 }
 
-const pizzaSizes = [{
-  id: 1,
-  name: 'Pequena',
-  size: 28,
-  slices: 2,
-  flavours: 1
-}, {
-  id: 2,
-  name: 'Média',
-  size: 20,
-  slices: 6,
-  flavours: 2
-}, {
-  id: 3,
-  name: 'Grande',
-  size: 32,
-  slices: 8,
-  flavours: 3
-}]
-
 const Title = styled(Typography).attrs({
   gutterBottom: true,
   align: 'center'
@@ -75,12 +60,14 @@ const Title = styled(Typography).attrs({
 
 const PizzasGrid = styled(Grid).attrs({
   container: true,
-  spacing: 3
+  spacing: 2
 })`
   padding: 20px
 `
 
-const PaperPizza = styled(Paper)`
+const CardActionArea = styled(MaterialCardActionArea).attrs({
+  component: Link
+})`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -91,12 +78,14 @@ const PaperPizza = styled(Paper)`
 const Pizza = styled.div`
   border: 1px solid #ccc;
   border-radius: 50%;
+  background: #fff;
   height: 200px;
   width: 200px;
   display: flex;
   justify-content: center;
   position: relative;
   align-items:center;
+  z-index: 1;
 
   &::before,
   &::after {
