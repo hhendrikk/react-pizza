@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import Header from './header'
 
 const ChoosePizzaSize = React.lazy(() => import('pages/choose-pizza-size'))
+const ChoosePizzaFlavours = React.lazy(() => import('pages/choose-pizza-flavours'))
 
 const Main = () => (
   <>
@@ -14,6 +15,7 @@ const Main = () => (
       <Suspense fallback={<LinearProgress />}>
         <Switch>
           <Route path='/' exact component={ChoosePizzaSize} />
+          <Route path='/sabores-da-pizza' component={ChoosePizzaFlavours} />
         </Switch>
       </Suspense>
     </Content>
