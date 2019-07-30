@@ -4,6 +4,7 @@ import { LinearProgress } from '@material-ui/core'
 import styled from 'styled-components'
 
 import Header from './header'
+import { HOME, CHOOSE_PIZZA_FLAVOURS } from 'routes'
 
 const ChoosePizzaSize = React.lazy(() => import('pages/choose-pizza-size'))
 const ChoosePizzaFlavours = React.lazy(() => import('pages/choose-pizza-flavours'))
@@ -14,8 +15,8 @@ const Main = () => (
     <Content>
       <Suspense fallback={<LinearProgress />}>
         <Switch>
-          <Route path='/' exact component={ChoosePizzaSize} />
-          <Route path='/sabores-da-pizza' component={ChoosePizzaFlavours} />
+          <Route path={HOME} exact component={ChoosePizzaSize} />
+          <Route path={CHOOSE_PIZZA_FLAVOURS} component={ChoosePizzaFlavours} />
         </Switch>
       </Suspense>
     </Content>

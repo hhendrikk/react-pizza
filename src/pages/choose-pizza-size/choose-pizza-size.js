@@ -10,27 +10,30 @@ import {
 
 import styled from 'styled-components'
 import { AuthContext } from 'contexts/auth'
+import { singularOrPlural } from 'utils'
 import pizzaSizes from 'fake-data/pizza-sizes'
+import { H3, H4, HeaderContent } from 'ui'
+import { CHOOSE_PIZZA_FLAVOURS } from 'routes'
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useContext(AuthContext)
 
   return (
     <>
-      <Grid container direction='column' alignItems='center'>
-        <Title variant='h3'>
+      <HeaderContent>
+        <H3>
           O que vai ser hoje, { userInfo.user.firstName }? =)
-        </Title>
-        <Title variant='h4'>
+        </H3>
+        <H4>
           Escolha o tamanho da pizza:
-        </Title>
-      </Grid>
+        </H4>
+      </HeaderContent>
       <PizzasGrid>
         {pizzaSizes.map(pizza => (
           <Grid item key={pizza.id} xs>
             <Card>
               <CardActionArea to={{
-                pathname: '/sabores-da-pizza',
+                pathname: CHOOSE_PIZZA_FLAVOURS,
                 state: pizza
               }}>
                 <Pizza>
@@ -51,15 +54,6 @@ const ChoosePizzaSize = () => {
     </>
   )
 }
-
-function singularOrPlural (amount, singular, plural) {
-  return amount === 1 ? singular : plural
-}
-
-const Title = styled(Typography).attrs({
-  gutterBottom: true,
-  align: 'center'
-})``
 
 const PizzasGrid = styled(Grid).attrs({
   container: true,

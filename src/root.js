@@ -1,5 +1,5 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader/root'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 
@@ -25,4 +25,4 @@ function Root () {
   )
 }
 
-export default hot(module)(Root)
+export default process.env.NODE_ENV === 'development' ? hot(Root) : Root
